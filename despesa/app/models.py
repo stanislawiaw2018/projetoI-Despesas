@@ -6,22 +6,21 @@ from django.utils import timezone
 
 
 class Despesa(models.Model):
-    CARTAO = 'CA'
-    BOLETO = 'BO'
-    CREDIARIO = 'CRE'
-    DINHEIRO = 'DI'
+    padrao = 'dinheiro'
     pagamento = (
-        (CARTAO, 'cartao'),
-        (BOLETO, 'boleto'),
-        (CREDIARIO, 'crediario'),
-        (DINHEIRO, 'dinheiro'),
+        ('CA', 'cartao'),
+        ('BO', 'boleto'),
+        ('CRE', 'crediario'),
+        (padrao, 'dinheiro'),
     )
     data_criacao = models.DateTimeField(default=timezone.now)
     tipo_despesa = models.CharField(max_length=50)
     forma_pagamento = models.CharField(
         max_length =3,
         choices = pagamento,
-        default = CARTAO,
+        default=padrao
+
+
     )
     descricao = models.TextField()
     vencimento = models.DateField(null=True, blank=True)
